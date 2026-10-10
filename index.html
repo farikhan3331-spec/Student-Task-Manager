@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Academic Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Chart.js for 14-Day Workload Forecast Chart -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <div class="dashboard-container">
+        
+        <!-- Top Header -->
+        <header class="top-header">
+            <h1 class="logo-title">Dashboard</h1>
+            <div class="header-icons">
+                <button class="icon-btn">🔍</button>
+                <button class="icon-btn">🔔</button>
+                <div class="user-avatar">👤</div>
+            </div>
+        </header>
+
+        <!-- Top Stat Cards -->
+        <section class="stats-grid">
+            <div class="stat-card blue">
+                <div class="stat-info">
+                    <span class="stat-label">Due Today</span>
+                    <h2 id="due-today-count">0</h2>
+                </div>
+                <div class="stat-icon">📅</div>
+            </div>
+
+            <div class="stat-card purple">
+                <div class="stat-info">
+                    <span class="stat-label">Due This Week</span>
+                    <h2 id="due-week-count">0</h2>
+                </div>
+                <div class="stat-icon">🕒</div>
+            </div>
+
+            <div class="stat-card green">
+                <div class="stat-info">
+                    <span class="stat-label">Completed Tasks</span>
+                    <h2 id="completed-count">0</h2>
+                </div>
+                <div class="stat-icon">📈</div>
+            </div>
+
+            <div class="stat-card yellow">
+                <div class="stat-info">
+                    <span class="stat-label">Active Courses</span>
+                    <h2 id="active-courses-count">3</h2>
+                </div>
+                <div class="stat-icon">📖</div>
+            </div>
+        </section>
+
+        <!-- Main Grid Layout (2 Columns) -->
+        <div class="main-grid">
+            
+            <!-- Left Column -->
+            <div class="left-column">
+                
+                <!-- Priority Tasks Card -->
+                <section class="dashboard-card">
+                    <div class="card-header">
+                        <h2>Priority Tasks</h2>
+                        <a href="#" class="view-all">View all &rarr;</a>
+                    </div>
+
+                    <!-- Add New Task Form -->
+                    <form id="add-task-form" class="add-task-form">
+                        <div class="form-row-1">
+                            <input type="text" id="task-title-input" placeholder="Task name..." required>
+                            <select id="task-course-input">
+                                <option value="CS101">Introduction to CS</option>
+                                <option value="MATH101">Calculus I</option>
+                                <option value="PSY101">Psychology</option>
+                                <!-- Aap mazeed subjects yahan add kar sakti hain -->
+                            </select>
+                        </div>
+                        
+                        <div class="form-row-2">
+                            <input type="datetime-local" id="task-datetime-input" required>
+                            <select id="task-priority-input">
+                                <option value="Medium">Medium Priority</option>
+                                <option value="High">High Priority</option>
+                            </select>
+                            <button type="submit">➕ Add Task</button>
+                        </div>
+                    </form>
+
+                    <div id="priority-task-list" class="task-list">
+                        <!-- Tasks dynamically populated by script.js -->
+                    </div>
+                </section>
+
+                <!-- Workload Forecast Chart -->
+                <section class="dashboard-card">
+                    <div class="card-header">
+                        <h2>14-Day Workload Forecast</h2>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="workloadChart"></canvas>
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- Right Column Sidebar -->
+            <div class="right-column">
+                
+                <!-- Upcoming Deadlines -->
+                <section class="dashboard-card">
+                    <div class="card-header">
+                        <h2>Upcoming Deadlines</h2>
+                        <a href="#" class="view-all">Calendar &rarr;</a>
+                    </div>
+                    <div class="deadline-list">
+                        <div class="deadline-item">
+                            <div class="deadline-icon">📅</div>
+                            <div class="deadline-info">
+                                <h4>Complete Programming Assignment 1</h4>
+                                <p>Introduction to Computer Science</p>
+                            </div>
+                            <span class="deadline-time">Tomorrow</span>
+                        </div>
+                        <div class="deadline-item">
+                            <div class="deadline-icon">📅</div>
+                            <div class="deadline-info">
+                                <h4>Quiz 1 Preparation</h4>
+                                <p>Introduction to Computer Science</p>
+                            </div>
+                            <span class="deadline-time">Tomorrow</span>
+                        </div>
+                        <div class="deadline-item">
+                            <div class="deadline-icon">📅</div>
+                            <div class="deadline-info">
+                                <h4>Psychology Research Paper Outline</h4>
+                                <p>Introduction to Psychology</p>
+                            </div>
+                            <span class="deadline-time">Sunday</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Courses List -->
+                <section class="dashboard-card">
+                    <div class="card-header">
+                        <h2>Courses</h2>
+                        <a href="#" class="view-all">Manage courses &rarr;</a>
+                    </div>
+
+                    <div class="course-list">
+                        <div class="course-item">
+                            <div class="course-title-box">
+                                <span class="course-icon blue-bg">📖</span>
+                                <div>
+                                    <h4>Introduction to Computer Science</h4>
+                                    <p>CS101</p>
+                                </div>
+                            </div>
+                            <div class="progress-bar-container">
+                                <div class="progress-label"><span>Progress</span><span>0%</span></div>
+                                <div class="progress-track"><div class="progress-fill" style="width: 0%;"></div></div>
+                            </div>
+                        </div>
+
+                        <div class="course-item">
+                            <div class="course-title-box">
+                                <span class="course-icon green-bg">📗</span>
+                                <div>
+                                    <h4>Calculus I</h4>
+                                    <p>MATH101</p>
+                                </div>
+                            </div>
+                            <div class="progress-bar-container">
+                                <div class="progress-label"><span>Progress</span><span>0%</span></div>
+                                <div class="progress-track"><div class="progress-fill" style="width: 0%;"></div></div>
+                            </div>
+                        </div>
+
+                        <div class="course-item">
+                            <div class="course-title-box">
+                                <span class="course-icon yellow-bg">📘</span>
+                                <div>
+                                    <h4>Introduction to Psychology</h4>
+                                    <p>PSY101</p>
+                                </div>
+                            </div>
+                            <div class="progress-bar-container">
+                                <div class="progress-label"><span>Progress</span><span>50%</span></div>
+                                <div class="progress-track"><div class="progress-fill yellow-fill" style="width: 50%;"></div></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
